@@ -282,8 +282,7 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  
+@media (max-width: 768px) {  
       html, body {
         overflow-x: hidden;
         width: 100%;
@@ -294,6 +293,9 @@ body {
         padding: 0;
         overflow-x: hidden;
         max-width: 100%;
+    }
+    .nav1 {
+        padding: 0 10px;
     }
 
     .nav1 ul {
@@ -320,6 +322,20 @@ body {
 
     .menu-toggle {
         display: block;
+    }
+
+    .hero-section {
+        align-items: center;
+        height: 60vh;
+    }
+
+    .hero-section h1 {
+        font-size: 3.2rem;
+        width: 100%;
+        text-align: center;
+        color: rgb(34, 14, 14);
+        margin: 0;
+        padding-bottom: 40px;
     }
 
     .analytics-section {
