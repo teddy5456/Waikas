@@ -283,17 +283,22 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        margin: 0;
+    }
+
     .nav1 ul {
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 60px;
+        top: 80px;
         right: 4px;
         background: rgb(111, 55, 55);
         width: 200px;
         text-align: center;
         padding: 10px;
         border-radius: 8px;
+        z-index: 999;
     }
 
     .nav1 ul a {
@@ -306,5 +311,50 @@ body {
 
     .menu-toggle {
         display: block;
+    }
+
+    .analytics-section {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        align-items: center;
+        padding-top: 150px;
+        justify-content: center;
+        background-color: #ebe3d8;
+    }
+
+    .feedback-form {
+        display: flex;
+        flex-direction: column;
+        background: #f1dccb;
+        padding: 70px;
+        border-radius: 12px;
+        width: 100%;
+        box-shadow: 5px 20px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .analytics-dashboard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: 'Inter', sans-serif;
+        max-width: 400px;
+        width: 110%;
+        margin: 0 auto;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .time-period-selector {
+        align-self: stretch;
+        justify-content: space-between;
+    }
+    
+    .period-btn {
+        flex: 1;
+        text-align: center;
     }
 }
