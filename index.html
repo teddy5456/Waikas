@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section>
+        <nav class="nav1">
+            <div>
+                <img src="https://cdn.dribbble.com/userupload/8002200/file/original-bb943a1e1c7802484b2cf709f5821d69.jpg?format=webp&resize=400x300&vertical=center" alt="Company Logo">
+            </div>
+            <div class="menu-toggle">&#9776;</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#feedback">Feedback</a></li>
+                <li class="contact"><a href="#contact">Contact us</a></li>
+            </ul>
+        </nav>
+    
+        <div class="hero-section">
+            <div class="head">
+                <h1>Waikas Fabrics and Furniture Enterprise</h1>
+                <button>Get Started</button>
+            </div>
+            <div class="image">
+                <img src="/a-modern-minimalist-living-room-with-a-w_8Za3StxdR3K1VFm0PsXseQ__2Ffn649Q3qU0250r0FF3w.jpeg" alt="Main Page Image">
+            </div>
+            
+        </div>        
+    </section>
+
+    <section>
+        <section class="analytics-section">
+            <div class="feedback-form">
+                <h3>Help Us Improve, Provide Your Feedback</h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-comment-dots"></i>
+                        <input type="text" placeholder="Enter your feedback">
+                    </li>
+                    <li>
+                        <i class="fas fa-box"></i>
+                        <input type="text" placeholder="Select product">
+                    </li>
+                    <li>
+                        <i class="fas fa-star"></i>
+                        <input type="text" placeholder="Rating">
+                    </li>
+                    <li>
+                        <i class="fas fa-pencil-alt"></i>
+                        <input type="text" placeholder="Additional comments">
+                    </li>
+                </ul>
+                <button class="submit-btn">
+                    <i></i> Submit Feedback
+                </button>
+            </div>
+        
+            <div class="analytics-dashboard">
+                <div class="analytics-chart-container">
+                    <div class="analytics-chart">
+                        <div class="chart-header">
+                            <h3>Marketing Performance Dashboard</h3>
+                            <div class="time-period-selector">
+                                <button class="period-btn active" data-period="6">6M</button>
+                                <button class="period-btn" data-period="12">1Y</button>
+                                <button class="period-btn" data-period="24">2Y</button>
+                                <button class="period-btn" data-period="36">3Y</button>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                        <div class="chart-footer">
+                            <div class="metric-highlight">
+                                <span class="metric-value">+42%</span>
+                                <span class="metric-label">Growth since January</span>
+                            </div>
+                            <div class="chart-legend">
+                                <span class="legend-item"><span class="legend-color" style="background-color: #6E56CF"></span>Woo Sales</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.1"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.2.0"></script>
+            <script>
+                // Generate sample data for different time periods
+                function generateData(months) {
+                    const labels = [];
+                    const data = [];
+                    let value = 500;
+                    
+                    for (let i = 0; i < months; i++) {
+                        const date = new Date();
+                        date.setMonth(date.getMonth() - (months - 1 - i));
+                        labels.push(date.toLocaleString('default', { month: 'short' }));
+                        
+                        // Simulate growth with some randomness
+                        value = value * (1 + (0.1 + Math.random() * 0.1));
+                        data.push(Math.round(value));
+                    }
+                    
+                    return { labels, data };
+                }
+            
+                // Initialize chart with 6 months data by default
+                const initialData = generateData(6);
+                let performanceChart;
+            
+                function createChart(labels, data) {
+                    const ctx = document.getElementById('performanceChart').getContext('2d');
+                    
+                    // Create gradient
+                    const gradient = ctx.createLinearGradient(0, 0, 0, 600);
+                    gradient.addColorStop(0, 'rgba(110, 86, 207, 0.25)');
+                    gradient.addColorStop(0.7, 'rgba(110, 86, 207, 0.08)');
+                    gradient.addColorStop(1, 'rgba(110, 86, 207, 0)');
+                    
+                    const shadowColor = 'rgba(110, 86, 207, 0.4)';
+                    
+                    if (performanceChart) {
+                        performanceChart.destroy();
+                    }
+                    
+                    performanceChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Woo Sales',
+                                data: data,
+                                borderColor: '#6E56CF',
+                                borderWidth: 3,
+                                backgroundColor: gradient,
+                                fill: true,
+                                tension: 0.3,
+                                pointBackgroundColor: '#fff',
+                                pointBorderColor: '#6E56CF',
+                                pointBorderWidth: 2,
+                                pointRadius: 5,
+                                pointHoverRadius: 8,
+                                pointHitRadius: 15,
+                                shadowOffsetX: 0,
+                                shadowOffsetY: 10,
+                                shadowBlur: 15,
+                                shadowColor: shadowColor
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            layout: {
+                                padding: {
+                                    top: 20,
+                                    right: 25,
+                                    bottom: 15,
+                                    left: 20
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { 
+                                        display: true, 
+                                        color: 'rgba(0, 0, 0, 0.03)',
+                                        drawBorder: false
+                                    },
+                                    ticks: { 
+                                        font: { 
+                                            family: "'Inter', sans-serif",
+                                            size: 12, 
+                                            weight: '500' 
+                                        }, 
+                                        color: '#6B7280',
+                                        maxRotation: 0,
+                                        autoSkip: true,
+                                        maxTicksLimit: 12
+                                    }
+                                },
+                                y: {
+                                    grid: { 
+                                        display: true, 
+                                        color: 'rgba(0, 0, 0, 0.03)',
+                                        drawBorder: false
+                                    },
+                                    ticks: { 
+                                        font: { 
+                                            family: "'Inter', sans-serif",
+                                            size: 12, 
+                                            weight: '500' 
+                                        }, 
+                                        color: '#6B7280',
+                                        callback: function(value) {
+                                            return '$' + value.toLocaleString();
+                                        }
+                                    },
+                                    beginAtZero: false
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    backgroundColor: '#111827',
+                                    titleFont: { 
+                                        family: "'Inter', sans-serif",
+                                        size: 13, 
+                                        weight: '600' 
+                                    },
+                                    bodyFont: { 
+                                        family: "'Inter', sans-serif",
+                                        size: 12 
+                                    },
+                                    cornerRadius: 8,
+                                    padding: 12,
+                                    displayColors: false,
+                                    callbacks: {
+                                        label: function(context) {
+                                            return 'Sales: $' + context.parsed.y.toLocaleString();
+                                        },
+                                        title: function(context) {
+                                            return context[0].label + ' ' + new Date().getFullYear();
+                                        }
+                                    }
+                                }
+                            },
+                            interaction: {
+                                intersect: false,
+                                mode: 'index'
+                            }
+                        }
+                    });
+                    
+                    // Update growth metric
+                    if (data.length > 1) {
+                        const growth = ((data[data.length - 1] - data[0]) / data[0]) * 100;
+                        document.querySelector('.metric-value').textContent = `${growth > 0 ? '+' : ''}${Math.round(growth)}%`;
+                        document.querySelector('.metric-value').style.color = growth >= 0 ? '#10B981' : '#EF4444';
+                        document.querySelector('.metric-label').textContent = `Growth since ${labels[0]}`;
+                    }
+                }
+            
+                // Initialize chart
+                createChart(initialData.labels, initialData.data);
+            
+                // Time period selector functionality
+                document.querySelectorAll('.period-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        const months = parseInt(this.dataset.period);
+                        const newData = generateData(months);
+                        createChart(newData.labels, newData.data);
+                    });
+                });
+            </script>
+            
+            
+            
+        
+    </section>
+   
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav1 ul').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
